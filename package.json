@@ -4,7 +4,9 @@
   "description": "Node package development/distribution utility kit",
   "main": "dist/cli.js",
   "bin": "bin/paco.js",
-  "scripts": {},
+  "scripts": {
+    "dev": "babel --watch src --out-dir dist"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alexanderwallin/paco.git"
