@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const deepExtend = require('deep-extend');
 
 const getLocalJSON = function(filename) {
   try {
@@ -24,7 +25,7 @@ const getMergedPacorc = function() {
   const defaultPacorc = require('../pacorc-default.js');
   const localPacorc = getPacorc();
 
-  return Object.assign({}, defaultPacorc, localPacorc);
+  return deepExtend({}, defaultPacorc, localPacorc);
 }
 
 module.exports = {
