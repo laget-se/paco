@@ -17,4 +17,7 @@ var yargs = require('yargs')
 // Test
 require('./commands/test')(yargs);
 
+// Build
+require('./commands/build')(yargs);
+
 const argv = yargs.argv;
