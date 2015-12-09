@@ -14,6 +14,13 @@ var yargs = require('yargs')
     return require('../package').version;
   });
 
+/* --------------------------------------------------- *\
+   Commands
+\* --------------------------------------------------- */
+
+// Lint
+require('./commands/lint')(yargs);
+
 // Test
 require('./commands/test')(yargs);
 
