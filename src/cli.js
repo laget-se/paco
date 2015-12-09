@@ -14,4 +14,7 @@ var yargs = require('yargs')
     return require('../package').version;
   });
 
+// Test
+require('./commands/test')(yargs);
+
 const argv = yargs.argv;
