@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * paco build
- *
- * ...
+ * paco test
  */
 
 'use strict';
