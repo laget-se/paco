@@ -3,14 +3,33 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports.getLocalJSON = function(filename) {
-  return JSON.parse(fs.readFileSync(path.resolve(process.cwd(), filename)));
+const getLocalJSON = function(filename) {
+  try {
+    return JSON.parse(fs.readFileSync(path.resolve(process.cwd(), filename)));
+  }
+  catch (ex) {
+    return {};
+  }
 };
 
-module.exports.getPackageJson = function() {
+const getPackageJson = function() {
   return getLocalJSON('package.json');
 };
 
-module.exports.getPacorc = function() {
+const getPacorc = function() {
   return getLocalJSON('.pacorc');
+};
+
+const getMergedPacorc = function() {
+  const defaultPacorc = require('../.pacorc-default.js');
+  const localPacorc = getPacorc();
+
+  return Object.assign({}, defaultPacorc, localPacorc);
+}
+
+module.exports = {
+  getLocalJSON,
+  getPackageJson,
+  getPacorc,
+  getMergedPacorc
 };

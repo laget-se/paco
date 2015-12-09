@@ -2,8 +2,6 @@
 
 /**
  * paco build
- *
- * ...
  */
 
 'use strict';
@@ -18,14 +16,14 @@ const npmHelpers = require('../helpers/local-npm');
 
 // Task
 module.exports = function(_yargs) {
-  const localConfig = configHelpers.getLocalJSON('.pacorc');
+  const pacoConfigs = configHelpers.getMergedPacorc();
 
-  let binPath = localConfig.build.transpiler;
+  let binPath = pacoConfigs.build.transpiler;
   if (binPath === 'babel')
     binPath = `./node_modules/.bin/babel`;
 
-  const srcDir = localConfig.build.src || 'src';
-  const destDir = localConfig.build.dest || 'dist';
+  const srcDir = pacoConfigs.build.src || 'src';
+  const destDir = pacoConfigs.build.dest || 'dist';
 
   _yargs.command('build', 'Build ES5 compatible files into your distribution directory', (yargs) => {
     const argv = yargs.option('transpiler', {
