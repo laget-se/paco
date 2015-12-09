@@ -21,7 +21,7 @@ const getPacorc = function() {
 };
 
 const getMergedPacorc = function() {
-  const defaultPacorc = require('../.pacorc-default.js');
+  const defaultPacorc = require('../pacorc-default.js');
   const localPacorc = getPacorc();
 
   return Object.assign({}, defaultPacorc, localPacorc);
