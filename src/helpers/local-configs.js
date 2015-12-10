@@ -13,7 +13,7 @@ const getLocalJSON = function(filename) {
   }
 };
 
-const getPackageJson = function() {
+const getPackageJSON = function() {
   return getLocalJSON('package.json');
 };
 
@@ -30,7 +30,7 @@ const getMergedPacorc = function() {
 
 module.exports = {
   getLocalJSON,
-  getPackageJson,
+  getPackageJSON,
   getPacorc,
   getMergedPacorc
 };
