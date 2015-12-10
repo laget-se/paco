@@ -1,5 +1,5 @@
 {
-  "name": "paco",
+  "name": "@alexander_wallin/paco",
   "version": "0.1.2",
   "description": "Node package development/distribution utility kit",
   "main": "dist/cli.js",
