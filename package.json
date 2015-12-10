@@ -1,6 +1,6 @@
 {
   "name": "@alexander_wallin/paco",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Node package development/distribution utility kit",
   "main": "dist/cli.js",
   "bin": "bin/paco.js",
