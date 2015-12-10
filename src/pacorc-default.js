@@ -7,5 +7,9 @@ module.exports = {
     "tag": false,
     "commit": false,
     "message": false
+  },
+  "release": {
+    "push": false,
+    "pushTags": false
   }
 };

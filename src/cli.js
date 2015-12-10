@@ -29,4 +29,7 @@ require('./commands/build')(yargs);
 // Bump
 require('./commands/bump')(yargs);
 
+// Release
+require('./commands/release')(yargs);
+
 const argv = yargs.argv;
