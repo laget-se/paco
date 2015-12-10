@@ -9,7 +9,6 @@ var yargs = require('yargs')
   .usage('Usage: paco <command> [options]')
   .help('h')
   .alias('h', 'help')
-
   .version(function() {
     return require('../package').version;
   });
@@ -26,5 +25,8 @@ require('./commands/test')(yargs);
 
 // Build
 require('./commands/build')(yargs);
+
+// Bump
+require('./commands/bump')(yargs);
 
 const argv = yargs.argv;
