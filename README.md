@@ -74,6 +74,12 @@ Wishlist:
 ### Usage
 
 ```bash
+# Lists available commands
+paco -h
+
+# Show help for a given command
+paco <command> -h
+
 paco test
 # -> `npm run test`
 
