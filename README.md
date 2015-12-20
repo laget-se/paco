@@ -12,7 +12,7 @@ For now, paco is mainly designed to be used globally installed, although it shou
 
 * [Installation](#installation)
 * [Features](#features)
-* [Configration with .pacorc](#pacorc)
+* [Configration with `.pacorc`](#pacorc)
 * [Usage](#usage)
 * [Development](#development)
 * [Todos](#todos)
@@ -28,8 +28,9 @@ For now, paco is mainly designed to be used globally installed, although it shou
 The core stuff:
 
 * Provides cli commands for common package management tasks such as **linting**, **testing**, **building**, **version bumping** and **publishing**.
-* **Highly configurable.** Enable the features you want.
+* **Highly configurable.** Enable or disable the features you want.
 * **Defaults to npm tasks** when they are defined or when no explicit commands have been provided – i.e. `paco build` -> `npm run build` when available.
+* **Makes use of built in npm functionality.** Tags, commits, commit messages and version bumps uses npm's built-in API.
 
 Current limitations:
 
@@ -39,11 +40,11 @@ Wishlist:
 
 * [ ] Support for running `paco` in subdirectories
 * [ ] Support for merging configs from current working directory with parent configs
-* [ ] Support for defining root configs wherever you want, i.e. manually stop searching parent directories for .pacorc
+* [ ] Support for defining root configs wherever you want, i.e. manually stop searching parent directories for `.pacorc`
 * [ ] Proper release notes support, covering git releases, markdown changelog etc.
 
 <a name="pacorc"></a>
-### Configuration with .pacorc
+### Configuration with `.pacorc`
 
 `.pacorc` is the config file that specifies paco's behavior. It must be placed in the package's root directory next to its `package.json`.
 
@@ -101,11 +102,11 @@ paco lint
 paco build
 # -> `npm run build` or `babel {src} --out-dir {dest}`
 
-paco release [bump]
+paco release [version]
 # -> `paco test`
 # -> `paco lint`
 # -> `paco build`
-# -> `paco bump`
+# -> `paco bump {version}`
 # -> `git push` (optional)
 # -> `git push --tags` (optional)
 ```
@@ -118,7 +119,8 @@ paco comes from and fills my personal needs, but if it's useful to you, please c
 <a name="todos"></a>
 ### Todos
 
-* [ ] `paco init` -> Wizard for creating a *.pacorc*
+* [ ] `paco init` -> Wizard for creating a `.pacorc`
 * [ ] `paco verifiy` -> `paco lint && paco test`
 * [ ] `paco prepare` -> `paco verify && paco build`
-* [ ] Add support for a root/parent .pacorc
+* [ ] Add support for a root/parent `.pacorc`
+* [ ] Add support for merging `.pacorc` configs infinitely down the directory tree
