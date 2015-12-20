@@ -28,8 +28,8 @@ For now, paco is mainly designed to be used globally installed, although it shou
 The core stuff:
 
 * Provides cli commands for common package management tasks such as **linting**, **testing**, **building**, **version bumping** and **publishing**.
-* **Highly configurable.** Enable the features you want with the libraries you want.
-* **Defaults to npm tasks** when no explicit commands have been provided (`paco build` -> `npm run build` when available)
+* **Highly configurable.** Enable the features you want.
+* **Defaults to npm tasks** when they are defined or when no explicit commands have been provided – i.e. `paco build` -> `npm run build` when available.
 
 Current limitations:
 
@@ -45,9 +45,17 @@ Wishlist:
 <a name="pacorc"></a>
 ### Configuration with .pacorc
 
-.pacorc is the config file in which to specify paco's behavior. The defaults are:
+`.pacorc` is the config file that specifies paco's behavior. It must be placed in the package's root directory next to its `package.json`.
+
+The defaults are:
 
 ```js
+//
+// .pacorc
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// Do not include these comments, since the file
+// will be parsed as JSON.
+//
 {
   "build": {
     // The transpiler to use when building
