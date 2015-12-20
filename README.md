@@ -13,6 +13,9 @@ For now, paco is mainly designed to be used globally installed, although it shou
 * [Installation](#installation)
 * [Features](#features)
 * [Configration with .pacorc](#pacorc)
+* [Usage](#usage)
+* [Development](#development)
+* [Todos](#todos)
 
 <a name="installation"></a>
 ### Installation
@@ -71,6 +74,7 @@ Wishlist:
 }
 ```
 
+<a name="usage"></a>
 ### Usage
 
 ```bash
@@ -98,10 +102,12 @@ paco release [bump]
 # -> `git push --tags` (optional)
 ```
 
+<a name="development"></a>
 ### Development
 
 paco comes from and fills my personal needs, but if it's useful to you, please chip in!
 
+<a name="todos"></a>
 ### Todos
 
 * [ ] `paco init` -> Wizard for creating a *.pacorc*
