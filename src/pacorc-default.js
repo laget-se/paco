@@ -1,7 +1,9 @@
 
 module.exports = {
   "build": {
-    "transpiler": "babel"
+    "transpiler": "babel",
+    "src": "src",
+    "dist": "dist"
   },
   "bump": {
     "tag": false,
