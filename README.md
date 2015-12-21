@@ -121,7 +121,7 @@ paco comes from and fills my personal needs, but if it's useful to you, please c
 
 * [ ] `paco init` -> Wizard for creating a `.pacorc`
 * [x] `paco verifiy` -> `paco lint && paco test`
-* [ ] `paco prepare` -> `paco verify && paco build`
+* [x] `paco prepare` -> `paco verify && paco build`
 * [ ] Add support for a root/parent `.pacorc`
 * [ ] Add support for merging `.pacorc` configs infinitely down the directory tree
 * [ ] Port pure cli to an api which the cli uses

@@ -29,6 +29,9 @@ require('./commands/verify')(yargs);
 // Build
 require('./commands/build')(yargs);
 
+// Prepare
+require('./commands/prepare')(yargs);
+
 // Bump
 require('./commands/bump')(yargs);
 
