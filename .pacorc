@@ -3,5 +3,9 @@
     "tag": true,
     "commit": true,
     "message": "Updates version to %s"
+  },
+  "release": {
+    "push": true,
+    "pushTags": true
   }
 }
