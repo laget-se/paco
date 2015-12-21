@@ -22,7 +22,8 @@ module.exports = function(_yargs) {
 
     if (!argv.help) {
       if (npmHelpers.hasTask('lint')) {
-        comeondo.exec(`npm run lint`);
+        comeondo.exec(`npm run lint`)
+          .catch(err => process.exit(err ? 1 : 0));
       }
     }
   });
