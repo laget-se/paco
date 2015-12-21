@@ -16,7 +16,7 @@ module.exports = function(_yargs) {
   // const localConfig = configHelpers.getLocalJSON('.pacorc');
 
   _yargs.command('lint', 'Runs `npm run lint` if defined', (yargs) => {
-    require('./options/tag')(yargs);
+    require('./options/help')(yargs);
 
     const argv = yargs.argv;
 
