@@ -23,6 +23,9 @@ require('./commands/lint')(yargs);
 // Test
 require('./commands/test')(yargs);
 
+// Verify
+require('./commands/verify')(yargs);
+
 // Build
 require('./commands/build')(yargs);
 
