@@ -37,7 +37,8 @@ module.exports = function(_yargs) {
       `paco lint`,
       `paco test`,
       `paco build`,
-      `paco bump`
+      `paco bump`,
+      `npm publish`,
     ];
 
     if (argv.gitPush)
