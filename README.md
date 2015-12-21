@@ -120,7 +120,7 @@ paco comes from and fills my personal needs, but if it's useful to you, please c
 ### Todos
 
 * [ ] `paco init` -> Wizard for creating a `.pacorc`
-* [ ] `paco verifiy` -> `paco lint && paco test`
+* [x] `paco verifiy` -> `paco lint && paco test`
 * [ ] `paco prepare` -> `paco verify && paco build`
 * [ ] Add support for a root/parent `.pacorc`
 * [ ] Add support for merging `.pacorc` configs infinitely down the directory tree
