@@ -22,7 +22,7 @@ module.exports = function(_yargs) {
       comeondo.run([
         `paco lint`,
         `paco test`,
-      ]);
+      ]).catch(err => process.exit(err ? 1 : 0));
     }
   });
 }
