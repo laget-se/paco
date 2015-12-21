@@ -22,7 +22,8 @@ module.exports = function(_yargs) {
 
     if (!argv.help) {
       if (npmHelpers.hasTask('test')) {
-        comeondo.exec(`npm test`);
+        comeondo.exec(`npm test`)
+          .catch(err => process.exit(err ? 1 : 0));
       }
     }
   });
