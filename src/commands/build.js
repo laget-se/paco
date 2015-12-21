@@ -16,34 +16,13 @@ const npmHelpers = require('../helpers/local-npm');
 
 // Task
 module.exports = function(_yargs) {
-  const pacoConfigs = configHelpers.getMergedPacorc();
-
-  let binPath = pacoConfigs.build.transpiler;
-  if (binPath === 'babel')
-    binPath = `./node_modules/.bin/babel`;
-
-  const srcDir = pacoConfigs.build.src || 'src';
-  const destDir = pacoConfigs.build.dest || 'dist';
-
   _yargs.command('build', 'Build ES5 compatible files into your distribution directory', (yargs) => {
-    const argv = yargs.option('transpiler', {
-        default: binPath || './node_modules/.bin/babel',
-        describe: 'The path to the babel executable',
-        type: 'string'
-      })
-      .option('src', {
-        default: srcDir,
-        describe: 'The source path to transpile',
-        type: 'string'
-      })
-      .option('dest', {
-        default: destDir,
-        describe: 'The transpilation destination directory',
-        type: 'string'
-      })
-      .help('h')
-      .alias('h', 'help')
-      .argv;
+    require('./options/build-transpiler.js')(yargs);
+    require('./options/build-src.js')(yargs);
+    require('./options/build-dest.js')(yargs);
+    require('./options/help.js')(yargs);
+
+    const argv = yargs.argv;
 
     if (!argv.help) {
       if (npmHelpers.hasTask('build')) {

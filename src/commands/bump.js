@@ -19,29 +19,12 @@ module.exports = function(_yargs) {
   const pacorcConfig = configHelpers.getMergedPacorc();
 
   _yargs.command('bump', 'Bumps the package.json version, optionally creating a git tag', (yargs) => {
-    const argv = yargs
-      .option('t', {
-        alias: 'tag',
-        default: pacorcConfig.bump.tag,
-        describe: 'Creates a corresponding git tag',
-        type: 'boolean'
-      })
-      .option('c', {
-        alias: 'commit',
-        default: pacorcConfig.bump.commit,
-        describe: 'Runs git commit -am [message] after bumping',
-        type: 'boolean'
-      })
-      .option('m', {
-        alias: 'message',
-        default: pacorcConfig.bump.message,
-        describe: 'Commit message to use (%s will be replaced with new version)',
-        type: 'string'
-      })
-      .implies('commit', 'message')
-      .help('h')
-      .alias('h', 'help')
-      .argv;
+    require('./options/tag')(yargs);
+    require('./options/message')(yargs);
+    require('./options/commit')(yargs);
+    require('./options/help')(yargs);
+
+    const argv = yargs.argv;
 
     const bumpArg = argv._[1] || 'patch';
 

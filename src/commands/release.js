@@ -23,11 +23,9 @@ module.exports = function(_yargs) {
     require('./options/commit')(yargs);
     require('./options/git-push')(yargs);
     require('./options/git-push-tags')(yargs);
+    require('./options/help')(yargs);
 
-    const argv = yargs
-      .help('h')
-      .alias('h', 'help')
-      .argv;
+    const argv = yargs.argv;
 
     const bumpArg = argv._[1] || 'patch';
 
