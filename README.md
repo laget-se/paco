@@ -100,10 +100,14 @@ paco test
 # -> `npm run test`
 
 paco lint
-# -> `npm run lint`
+# -> `npm run lint` if defined
 
 paco build
-# -> `npm run build` or `babel {src} --out-dir {dest}`
+# -> `npm run build` if defined, or `babel {src} --out-dir {dest}` otherwise
+
+paco bump [--tag] [--message="Something about the new version: %s"] [--commit] [version]
+# -> `npm [--no-git-tag-version] version {version} [-m {message}]`
+# -> `git commit -am {message}` if --commit
 
 paco release [version]
 # -> `paco test`
