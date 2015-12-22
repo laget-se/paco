@@ -17,6 +17,9 @@ var yargs = require('yargs')
    Commands
 \* --------------------------------------------------- */
 
+// Init
+require('./commands/init')(yargs);
+
 // Lint
 require('./commands/lint')(yargs);
 

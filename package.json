@@ -21,6 +21,7 @@
   "dependencies": {
     "comeondo": "^0.3.6",
     "deep-extend": "^0.4.0",
+    "json-pretty": "0.0.1",
     "yargs": "^3.31.0"
   },
   "devDependencies": {

@@ -93,6 +93,9 @@ paco -h
 # Show help for a given command
 paco <command> -h
 
+# Creates a default .pacorc
+paco init
+
 paco test
 # -> `npm run test`
 
