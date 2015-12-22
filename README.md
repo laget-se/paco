@@ -114,6 +114,7 @@ paco release [version]
 # -> `paco lint`
 # -> `paco build`
 # -> `paco bump {version}`
+# -> `npm publish`
 # -> `git push` (optional)
 # -> `git push --tags` (optional)
 ```
