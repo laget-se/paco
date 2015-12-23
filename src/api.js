@@ -3,6 +3,7 @@ const Q = require('q');
 const comeondo = require('comeondo');
 const jsonpretty = require('json-pretty');
 
+const bump = require('./helpers/bump');
 const configHelpers = require('./helpers/local-configs');
 const npmHelpers = require('./helpers/local-npm');
 const paths = require('./helpers/paths');
@@ -94,6 +95,27 @@ api.prepare = function(options) {
   return Q()
     .then(() => api.verify())
     .then(() => api.build(options));
+}
+
+/**
+ * Bump
+ */
+api.bump = function(options) {
+  const pacorc = configHelpers.getNearestPacorc();
+
+  const mergedOptions = {
+    version: options.version || 'patch',
+    tag: options.tag || pacorc.bump.tag,
+    commit: options.commit || pacorc.bump.commit,
+    message: options.message || pacorc.bump.message,
+  };
+
+  if (!mergedOptions.tag && mergedOptions.commit && mergedOptions.message) {
+    return bump.bumpAndCommit(mergedOptions);
+  }
+  else {
+    return bump.bump(mergedOptions);
+  }
 }
 
 module.exports = api;

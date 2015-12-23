@@ -11,8 +11,7 @@ module.exports = function(yargs) {
       default: pacorcConfig.bump.commit,
       describe: 'Runs git commit -am [message] after bumping',
       type: 'boolean'
-    })
-    .implies('commit', 'message');
+    });
 
   return yargs;
 }

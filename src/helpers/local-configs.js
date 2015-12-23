@@ -29,8 +29,16 @@ function getPackageJSON() {
   return getLocalJSON('package.json');
 }
 
+function getNearestPackageJson() {
+  return getFileAsJson(getNearestPackageJSONPath(process.cwd()));
+}
+
 function getPacorc() {
   return getLocalJSON('.pacorc');
+}
+
+function getNearestPacorc() {
+  return getFileAsJson(getNearestPacorcPath(process.cwd()));
 }
 
 function getMergedPacorc() {
@@ -98,7 +106,9 @@ module.exports = {
   getFileAsJson,
   getLocalJSON,
   getPackageJSON,
+  getNearestPackageJson,
   getPacorc,
+  getNearestPacorc,
   getMergedPacorc,
   getNearestPacorcPath,
   getNearestPackageJSONPath,

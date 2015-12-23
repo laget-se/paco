@@ -9,15 +9,10 @@
 'use strict';
 
 // Dependencies
-const comeondo = require('comeondo');
-
-const configHelpers = require('../helpers/local-configs');
-const npmHelpers = require('../helpers/local-npm');
+const paco = require('../api');
 
 // Task
 module.exports = function(_yargs) {
-  const pacorcConfig = configHelpers.getMergedPacorc();
-
   _yargs.command('bump', 'Bumps the package.json version, optionally creating a git tag', (yargs) => {
     yargs.usage('paco bump [version] [options]');
     require('./options/tag')(yargs);
@@ -27,36 +22,10 @@ module.exports = function(_yargs) {
 
     const argv = yargs.argv;
 
-    const bumpArg = argv._[1] || 'patch';
-
-    const tagArg = argv.tag ? '' : '--no-git-tag-version';
-    const messageArg = argv.message ? `-m "${argv.message}"` : '';
-
-    // Version command
-    const versionCmd = {
-      cmd: `npm`,
-      args: [tagArg, 'version', bumpArg].filter(arg => arg.trim() !== '')
-    };
-
-    if (argv.message)
-      versionCmd.args.push('-m', argv.message);
+    argv.version = argv._[1];
 
     if (!argv.help) {
-      comeondo.exec(versionCmd).then(() => {
-        const newVersion = configHelpers.getPackageJSON().version;
-
-        // Commit command
-        if (argv.commit && argv.message) {
-          const commitMessage = argv.message.replace('%s', newVersion);
-          const commitCmd = {
-            cmd: `git`,
-            args: ['commit', '-a', '-m', `${commitMessage}`]
-          };
-
-          comeondo.exec(commitCmd);
-        }
-      })
-      .catch(err => console.error(err));
+      paco.bump(argv);
     }
   });
 }
