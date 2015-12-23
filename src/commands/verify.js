@@ -7,7 +7,7 @@
 'use strict';
 
 // Dependencies
-const comeondo = require('comeondo');
+const paco = require('../api');
 
 // Task
 module.exports = function(_yargs) {
@@ -17,12 +17,7 @@ module.exports = function(_yargs) {
     const argv = yargs.argv;
 
     if (!argv.help) {
-      console.log('paco verify');
-
-      comeondo.run([
-        `paco lint`,
-        `paco test`,
-      ]).catch(err => process.exit(err ? 1 : 0));
+      paco.verify();
     }
   });
 }

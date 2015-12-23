@@ -36,6 +36,7 @@
     "file-exists": "^1.0.0",
     "json-pretty": "0.0.1",
     "node-objectify": "0.0.3",
+    "q": "^1.4.1",
     "yargs": "^3.31.0"
   },
   "devDependencies": {

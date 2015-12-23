@@ -1,4 +1,5 @@
 
+const Q = require('q');
 const comeondo = require('comeondo');
 const jsonpretty = require('json-pretty');
 
@@ -35,8 +36,11 @@ api.config = function(options) {
  */
 api.lint = function() {
   if (npmHelpers.hasTask('lint')) {
-    comeondo.exec(`npm run lint`)
+    return comeondo.exec(`npm run lint`)
       .catch(err => process.exit(err ? 1 : 0));
+  }
+  else {
+    return Q();
   }
 }
 
@@ -45,9 +49,21 @@ api.lint = function() {
  */
 api.test = function() {
   if (npmHelpers.hasTask('test')) {
-    comeondo.exec(`npm run test`)
+    return comeondo.exec(`npm run test`)
       .catch(err => process.exit(err ? 1 : 0));
   }
+  else {
+    return Q();
+  }
+}
+
+/**
+ * Verify
+ */
+api.verify = function() {
+  return Q()
+    .then(() => api.lint());
+    .then(() => api.test());
 }
 
 /**
