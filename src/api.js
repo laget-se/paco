@@ -62,7 +62,7 @@ api.test = function() {
  */
 api.verify = function() {
   return Q()
-    .then(() => api.lint());
+    .then(() => api.lint())
     .then(() => api.test());
 }
 
