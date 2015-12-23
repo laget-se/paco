@@ -19,6 +19,7 @@ module.exports = function(_yargs) {
   const pacorcConfig = configHelpers.getMergedPacorc();
 
   _yargs.command('bump', 'Bumps the package.json version, optionally creating a git tag', (yargs) => {
+    yargs.usage('paco bump [version] [options]');
     require('./options/tag')(yargs);
     require('./options/message')(yargs);
     require('./options/commit')(yargs);
