@@ -87,4 +87,13 @@ api.build = function(options = {}) {
   }
 }
 
+/**
+ * Prepare
+ */
+api.prepare = function(options) {
+  return Q()
+    .then(() => api.verify())
+    .then(() => api.build(options));
+}
+
 module.exports = api;
