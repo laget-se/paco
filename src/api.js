@@ -19,6 +19,16 @@ api.lint = function() {
 }
 
 /**
+ * Test
+ */
+api.test = function() {
+  if (npmHelpers.hasTask('test')) {
+    comeondo.exec(`npm run test`)
+      .catch(err => process.exit(err ? 1 : 0));
+  }
+}
+
+/**
  * Build
  */
 api.build = function(options = {}) {
