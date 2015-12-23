@@ -134,3 +134,5 @@ paco comes from and fills my personal needs, but if it's useful to you, please c
 * [ ] Add support for merging `.pacorc` configs infinitely down the directory tree
 * [ ] Port pure cli to an api which the cli uses
 * [ ] Log start and finish info for all commands
+* [ ] Skip bump script for first ever publish
+* [ ] `paco config [key] [value]` -> save config to `.pacorc`
