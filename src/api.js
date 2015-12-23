@@ -1,5 +1,8 @@
 
 const comeondo = require('comeondo');
+const jsonpretty = require('json-pretty');
+
+const configHelpers = require('./helpers/local-configs');
 const npmHelpers = require('./helpers/local-npm');
 const paths = require('./helpers/paths');
 
@@ -7,6 +10,25 @@ const paths = require('./helpers/paths');
  * paco api
  */
 const api = {};
+
+/**
+ * Config
+ */
+api.config = function(options) {
+  const { key, value } = options;
+
+  if (key && value) {
+    return configHelpers.setConfig(key, value);
+  }
+  else if (key) {
+    const configValue = configHelpers.getConfig(key);
+    return configValue;
+  }
+  else {
+    const allConfigs = configHelpers.getMergedPacorc();
+    return jsonpretty(allConfigs);
+  }
+}
 
 /**
  * Lint

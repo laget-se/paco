@@ -7,10 +7,7 @@
 'use strict';
 
 // Dependencies
-const comeondo = require('comeondo');
-const jsonpretty = require('json-pretty');
-
-const configHelpers = require('../helpers/local-configs');
+const paco = require('../api');
 
 // Task
 module.exports = function(_yargs) {
@@ -20,22 +17,12 @@ module.exports = function(_yargs) {
 
     const argv = yargs.argv;
 
-    const key = argv._[1];
-    const value = argv._[2];
+    const [, key, value] = argv._;
+    const options = { key, value };
 
     if (!argv.help) {
-      if (key && value) {
-        const results = configHelpers.setConfig(key, value);
-        console.log(results);
-      }
-      else if (key) {
-        const configValue = configHelpers.getConfig(key);
-        console.log(configValue);
-      }
-      else {
-        const allConfigs = configHelpers.getMergedPacorc();
-        console.log(jsonpretty(allConfigs));
-      }
+      const results = paco.config(options);
+      console.log(results);
     }
   });
 }
