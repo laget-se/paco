@@ -14,7 +14,16 @@
     "type": "git",
     "url": "git+https://github.com/alexanderwallin/paco.git"
   },
-  "keywords": [],
+  "keywords": [
+    "release",
+    "automation",
+    "npm",
+    "node",
+    "distribution",
+    "package",
+    "development",
+    "utility"
+  ],
   "author": "Alexander Wallin <office@alexanderwallin.com> (http://alexanderwallin.com)",
   "license": "ISC",
   "bugs": {
