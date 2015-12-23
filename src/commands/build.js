@@ -7,12 +7,7 @@
 'use strict';
 
 // Dependencies
-const path = require('path');
-const fs = require('fs');
-const comeondo = require('comeondo');
-
-const configHelpers = require('../helpers/local-configs');
-const npmHelpers = require('../helpers/local-npm');
+const paco = require('../api');
 
 // Task
 module.exports = function(_yargs) {
@@ -25,12 +20,7 @@ module.exports = function(_yargs) {
     const argv = yargs.argv;
 
     if (!argv.help) {
-      if (npmHelpers.hasTask('build')) {
-        comeondo.exec(`npm run build`);
-      }
-      else {
-        comeondo.exec(`${argv.transpiler} ${argv.src} --out-dir ${argv.dest}`);
-      }
+      paco.build(argv);
     }
   });
 }
