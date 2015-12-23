@@ -17,7 +17,9 @@ const npmHelpers = require('../helpers/local-npm');
 module.exports = function(_yargs) {
   const pacorcConfig = configHelpers.getMergedPacorc();
 
-  _yargs.command('release', 'Publishes a new release (lint, test, build, bump, push)', (yargs) => {
+  _yargs.command('release', 'Publishes a new release (lint, test, build, bump, publish, push)', (yargs) => {
+    yargs.usage('paco release [version] [options]');
+
     require('./options/tag')(yargs);
     require('./options/message')(yargs);
     require('./options/commit')(yargs);
@@ -28,8 +30,6 @@ module.exports = function(_yargs) {
     const argv = yargs.argv;
 
     const bumpArg = argv._[1] || 'patch';
-
-    console.log(argv);
 
     const commands = [
       `paco lint`,
