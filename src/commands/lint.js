@@ -6,25 +6,17 @@
 
 'use strict';
 
-// Dependencies
-const comeondo = require('comeondo');
-
-const npmHelpers = require('../helpers/local-npm');
+const paco = require('../api');
 
 // Task
 module.exports = function(_yargs) {
-  // const localConfig = configHelpers.getLocalJSON('.pacorc');
-
   _yargs.command('lint', 'Runs `npm run lint` if defined', (yargs) => {
     require('./options/help')(yargs);
 
     const argv = yargs.argv;
 
     if (!argv.help) {
-      if (npmHelpers.hasTask('lint')) {
-        comeondo.exec(`npm run lint`)
-          .catch(err => process.exit(err ? 1 : 0));
-      }
+      paco.lint();
     }
   });
 }

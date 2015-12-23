@@ -9,6 +9,16 @@ const paths = require('./helpers/paths');
 const api = {};
 
 /**
+ * Lint
+ */
+api.lint = function() {
+  if (npmHelpers.hasTask('lint')) {
+    comeondo.exec(`npm run lint`)
+      .catch(err => process.exit(err ? 1 : 0));
+  }
+}
+
+/**
  * Build
  */
 api.build = function(options = {}) {
