@@ -5,17 +5,24 @@ const path = require('path');
 const deepExtend = require('deep-extend');
 const jsonpretty = require('json-pretty');
 const objectify = require('node-objectify');
+const fileExists = require('file-exists');
+
+const pathHelpers = require('./paths');
 
 // Default config
 const defaultPacorc = require('../pacorc-default.js');
 
-function getLocalJSON(filename) {
+function getFileAsJson(filePath) {
   try {
-    return JSON.parse(fs.readFileSync(path.resolve(process.cwd(), filename)));
+    return JSON.parse(fs.readFileSync(filePath));
   }
   catch (ex) {
     return {};
   }
+}
+
+function getLocalJSON(filename) {
+  return getFileAsJson(path.resolve(process.cwd(), filename));
 };
 
 function getPackageJSON() {
@@ -30,6 +37,14 @@ function getMergedPacorc() {
   const localPacorc = getPacorc();
 
   return deepExtend({}, defaultPacorc, localPacorc);
+}
+
+function getNearestPacorcPath(startPath) {
+  return pathHelpers.getNearestPathToFileWithName('.pacorc', startPath);
+}
+
+function getNearestPackageJSONPath(startPath) {
+  return pathHelpers.getNearestPathToFileWithName('package.json', startPath);
 }
 
 /**
@@ -80,10 +95,13 @@ function savePacorc(configs) {
 }
 
 module.exports = {
+  getFileAsJson,
   getLocalJSON,
   getPackageJSON,
   getPacorc,
   getMergedPacorc,
+  getNearestPacorcPath,
+  getNearestPackageJSONPath,
   getConfig,
   setConfig,
 };

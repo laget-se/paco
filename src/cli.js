@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
+
 /* --------------------------------------------------- *\
    CLI setup
 \* --------------------------------------------------- */
@@ -12,6 +15,20 @@ var yargs = require('yargs')
   .version(function() {
     return require('../package').version;
   });
+
+/* --------------------------------------------------- *\
+   Environment setup
+\* --------------------------------------------------- */
+
+const configHelpers = require('./helpers/local-configs');
+
+const nearestPacorcPath = configHelpers.getNearestPacorcPath(process.cwd());
+const nearestPackageJsonPath = configHelpers.getNearestPackageJSONPath(process.cwd());
+
+process.env.PACO_ROOT_PATH = path.dirname(nearestPacorcPath);
+process.env.PACO_PACKAGE_PATH = path.dirname(nearestPackageJsonPath);
+process.env.PACO_PACKAGE_JSON_PATH = nearestPackageJsonPath;
+
 
 /* --------------------------------------------------- *\
    Commands
