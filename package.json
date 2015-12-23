@@ -1,6 +1,6 @@
 {
   "name": "paco",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "Node package development/distribution utility kit",
   "main": "dist/cli.js",
   "bin": "bin/paco.js",
