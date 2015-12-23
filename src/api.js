@@ -77,8 +77,8 @@ api.build = function(options = {}) {
       .catch(err => process.exit(err ? 1 : 0));
   }
   else {
-    const src = paths.pathRelativeToRoot(options.src);
-    const dest = paths.pathRelativeToRoot(options.dest);
+    const src = paths.pathRelativeToPackage(options.src);
+    const dest = paths.pathRelativeToPackage(options.dest);
 
     comeondo.exec(`${options.transpiler} ${src} --out-dir ${dest}`, {
         cwd: process.env.PACO_ROOT_PATH,

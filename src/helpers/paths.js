@@ -10,6 +10,14 @@ function pathRelativeToRoot(pathname) {
 }
 
 /**
+ * Returns a pathname's relative path to the current
+ * nearest package.
+ */
+function pathRelativeToPackage(pathname) {
+  return path.resolve(process.env.PACO_PACKAGE_PATH, pathname);
+}
+
+/**
  * Returns the full path to the nearest file with a given name,
  * where searching starts from `startPath`.
  */
@@ -49,6 +57,7 @@ function getNearestDirContainingFileNamed(filename, startPath) {
 
 module.exports = {
   pathRelativeToRoot,
+  pathRelativeToPackage,
   getNearestPathToFileWithName,
   getNearestDirContainingFileNamed,
 };
