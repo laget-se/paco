@@ -38,7 +38,7 @@ Current limitations:
 
 Wishlist:
 
-* [ ] Support for running `paco` in subdirectories
+* [x] Support for running `paco` in subdirectories
 * [ ] Support for merging configs from current working directory with parent configs
 * [ ] Support for defining root configs wherever you want, i.e. manually stop searching parent directories for `.pacorc`
 * [ ] Proper release notes support, covering git releases, markdown changelog etc.
