@@ -15,17 +15,17 @@ api.build = function(options = {}) {
   console.log('api.build', options);
 
   if (npmHelpers.hasTask('build')) {
-    comeondo.exec(`npm run build`, {
-      cwd: process.env.PACO_PACKAGE_PATH,
-    });
+    comeondo.exec(`npm run build`)
+      .catch(err => process.exit(err ? 1 : 0));
   }
   else {
     const src = paths.pathRelativeToRoot(options.src);
     const dest = paths.pathRelativeToRoot(options.dest);
 
     comeondo.exec(`${options.transpiler} ${src} --out-dir ${dest}`, {
-      cwd: process.env.PACO_ROOT_PATH,
-    });
+        cwd: process.env.PACO_ROOT_PATH,
+      })
+      .catch(err => process.exit(err ? 1 : 0));
   }
 }
 
