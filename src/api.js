@@ -8,6 +8,13 @@ const configHelpers = require('./helpers/local-configs');
 const npmHelpers = require('./helpers/local-npm');
 const paths = require('./helpers/paths');
 
+function exitWithError(err) {
+  console.log('exiting due to error:');
+  console.log(err);
+  console.log(err.stack);
+  process.exit(err ? 1 : 0);
+}
+
 /**
  * paco api
  */
@@ -71,17 +78,15 @@ api.verify = function() {
  * Build
  */
 api.build = function(options = {}) {
-  console.log('api.build', options);
-
   if (npmHelpers.hasTask('build')) {
-    comeondo.exec(`npm run build`)
+    return comeondo.exec(`npm run build`)
       .catch(err => process.exit(err ? 1 : 0));
   }
   else {
     const src = paths.pathRelativeToPackage(options.src);
     const dest = paths.pathRelativeToPackage(options.dest);
 
-    comeondo.exec(`${options.transpiler} ${src} --out-dir ${dest}`, {
+    return comeondo.exec(`${options.transpiler} ${src} --out-dir ${dest}`, {
         cwd: process.env.PACO_ROOT_PATH,
       })
       .catch(err => process.exit(err ? 1 : 0));
@@ -116,6 +121,33 @@ api.bump = function(options) {
   else {
     return bump.bump(mergedOptions);
   }
+}
+
+/**
+ * Release
+ */
+api.release = function(options) {
+  return api.lint()
+    .then(() => api.test())
+    .then(() => api.build(options))
+    .then(() => api.bump(options))
+    .then(() => {
+      return comeondo.exec('npm publish', { cwd: process.env.PACO_PACKAGE_PATH })
+        .catch(exitWithError);
+    })
+    .then(() => {
+      if (options.gitPush && (options.commit || options.tag))
+        return comeondo.exec('git push').catch(exitWithError);
+      else
+        return Q();
+    })
+    .then(() => {
+      if (options.gitPushTags && options.tag)
+        return comeondo.exec('git push --tags').catch(exitWithError);
+      else
+        return Q();
+    })
+    .catch(exitWithError);
 }
 
 module.exports = api;

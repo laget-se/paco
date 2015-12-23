@@ -7,19 +7,16 @@
 'use strict';
 
 // Dependencies
-const comeondo = require('comeondo');
-
-// Helpers
-const configHelpers = require('../helpers/local-configs');
-const npmHelpers = require('../helpers/local-npm');
+const paco = require('../api');
 
 // Task
 module.exports = function(_yargs) {
-  const pacorcConfig = configHelpers.getMergedPacorc();
-
   _yargs.command('release', 'Publishes a new release (lint, test, build, bump, publish, push)', (yargs) => {
     yargs.usage('paco release [version] [options]');
 
+    require('./options/build-transpiler.js')(yargs);
+    require('./options/build-src.js')(yargs);
+    require('./options/build-dest.js')(yargs);
     require('./options/tag')(yargs);
     require('./options/message')(yargs);
     require('./options/commit')(yargs);
@@ -28,22 +25,9 @@ module.exports = function(_yargs) {
     require('./options/help')(yargs);
 
     const argv = yargs.argv;
+    argv.version = argv._[1];
 
-    const bumpArg = argv._[1] || 'patch';
-
-    const commands = [
-      `paco lint`,
-      `paco test`,
-      `paco build`,
-      `paco bump`,
-      `npm publish`,
-    ];
-
-    if (argv.gitPush)
-      commands.push(`git push`);
-    if (argv.gitPushTags)
-      commands.push(`git push --tags`);
-
-    comeondo.run(commands);
+    if (!argv.help)
+      paco.release(argv);
   });
 }
