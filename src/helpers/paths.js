@@ -55,9 +55,41 @@ function getNearestDirContainingFileNamed(filename, startPath) {
   }
 }
 
+/**
+ * Returns a path to the last occurance of a file up the
+ * directory tree.
+ */
+function getHighestPathToFileNamed(filename, startPath) {
+  let currPath = startPath;
+  let lastPath;
+  let reachedRoot = false;
+
+  while (reachedRoot === false) {
+    if (fileExists(path.join(currPath, filename))) {
+      lastPath = currPath;
+    }
+
+    currPath = path.resolve(currPath, '..');
+
+    reachedRoot = currPath === '/';
+  }
+
+  return path.join(lastPath, filename);
+}
+
+/**
+ * Returns a path to the last parent directory containing a file
+ * with a given name.
+ */
+function getHighestDirContainingFileNamed(filename, startPath) {
+  return path.dirname(getHighestPathToFileNamed(filename, startPath));
+}
+
 module.exports = {
   pathRelativeToRoot,
   pathRelativeToPackage,
   getNearestPathToFileWithName,
   getNearestDirContainingFileNamed,
+  getHighestPathToFileNamed,
+  getHighestDirContainingFileNamed,
 };

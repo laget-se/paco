@@ -42,9 +42,24 @@ function getNearestPacorc() {
 }
 
 function getMergedPacorc() {
-  const localPacorc = getPacorc();
+  let currentConfigDir = pathHelpers.getNearestDirContainingFileNamed('.pacorc', process.cwd());
+  const configPaths = [];
+  let mergedConfigs = require('../pacorc-default');
 
-  return deepExtend({}, defaultPacorc, localPacorc);
+  while (path.isAbsolute(currentConfigDir)) {
+    configPaths.push(path.resolve(currentConfigDir, '.pacorc'));
+    currentConfigDir = path.resolve(currentConfigDir, '..');
+    currentConfigDir = pathHelpers.getNearestDirContainingFileNamed('.pacorc', currentConfigDir);
+  }
+
+  configPaths.reverse();
+
+  for (let path of configPaths) {
+    const config = getFileAsJson(path);
+    mergedConfigs = deepExtend(mergedConfigs, config);
+  }
+
+  return mergedConfigs;
 }
 
 function getNearestPacorcPath(startPath) {
@@ -53,6 +68,10 @@ function getNearestPacorcPath(startPath) {
 
 function getNearestPackageJSONPath(startPath) {
   return pathHelpers.getNearestPathToFileWithName('package.json', startPath);
+}
+
+function getRootPacorcPath(startPath) {
+  return pathHelpers.getHighestPathToFileNamed('.pacorc', startPath);
 }
 
 /**
@@ -112,6 +131,7 @@ module.exports = {
   getMergedPacorc,
   getNearestPacorcPath,
   getNearestPackageJSONPath,
+  getRootPacorcPath,
   getConfig,
   setConfig,
 };

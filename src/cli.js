@@ -21,11 +21,13 @@ var yargs = require('yargs')
 \* --------------------------------------------------- */
 
 const configHelpers = require('./helpers/local-configs');
+const pathHelpers = require('./helpers/paths');
 
+const rootPacorcPath = pathHelpers.getHighestDirContainingFileNamed('.pacorc', process.cwd());
 const nearestPacorcPath = configHelpers.getNearestPacorcPath(process.cwd());
 const nearestPackageJsonPath = configHelpers.getNearestPackageJSONPath(process.cwd());
 
-process.env.PACO_ROOT_PATH = path.dirname(nearestPacorcPath);
+process.env.PACO_ROOT_PATH = rootPacorcPath;
 process.env.PACO_PACKAGE_PATH = path.dirname(nearestPackageJsonPath);
 process.env.PACO_PACKAGE_JSON_PATH = nearestPackageJsonPath;
 
@@ -34,6 +36,8 @@ console.log('env:', {
   PACO_PACKAGE_PATH: process.env.PACO_PACKAGE_PATH,
   PACO_PACKAGE_JSON_PATH: process.env.PACO_PACKAGE_JSON_PATH,
 });
+
+// process.exit(0);
 
 
 /* --------------------------------------------------- *\

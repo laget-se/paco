@@ -106,7 +106,7 @@ api.prepare = function(options) {
  * Bump
  */
 api.bump = function(options) {
-  const pacorc = configHelpers.getNearestPacorc();
+  const pacorc = configHelpers.getMergedPacorc();
 
   const mergedOptions = {
     version: options.version || 'patch',
@@ -127,9 +127,7 @@ api.bump = function(options) {
  * Release
  */
 api.release = function(options) {
-  return api.lint()
-    .then(() => api.test())
-    .then(() => api.build(options))
+  return api.prepare(options)
     .then(() => api.bump(options))
     .then(() => {
       return comeondo.exec('npm publish', { cwd: process.env.PACO_PACKAGE_PATH })
