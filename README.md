@@ -96,6 +96,10 @@ paco <command> -h
 # Creates a default .pacorc
 paco init
 
+# Gets or sets local paco configs
+# e.g. `paco config build.dest www`
+paco config [key] [value]
+
 paco test
 # -> `npm run test`
 
@@ -135,4 +139,4 @@ paco comes from and fills my personal needs, but if it's useful to you, please c
 * [ ] Port pure cli to an api which the cli uses
 * [ ] Log start and finish info for all commands
 * [ ] Skip bump script for first ever publish
-* [ ] `paco config [key] [value]` -> save config to `.pacorc`
+* [x] `paco config [key] [value]` -> save config to `.pacorc`

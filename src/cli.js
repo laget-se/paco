@@ -20,6 +20,9 @@ var yargs = require('yargs')
 // Init
 require('./commands/init')(yargs);
 
+// Config
+require('./commands/config')(yargs);
+
 // Lint
 require('./commands/lint')(yargs);
 
