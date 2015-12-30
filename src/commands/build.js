@@ -9,7 +9,7 @@
 // Dependencies
 const paco = require('../api');
 
-const description = 'Runs all scripts provided in the build config in .pacorc, or `npm run build` if defined';
+const description = 'Runs all scripts provided in the build config in .pacorc, or `npm run build` if defined. If the build config is set to false, nothing will be done.';
 
 // Task
 module.exports = function(_yargs) {

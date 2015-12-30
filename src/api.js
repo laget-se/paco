@@ -44,6 +44,11 @@ api.config = function(options) {
 api.lint = function() {
   const configs = configHelpers.getMergedPacorc();
 
+  if (configs.lint === false) {
+    console.log('lint is explicitly disabled.');
+    return Q();
+  }
+
   if (typeof configs.lint === 'string') {
     return comeondo.exec(configs.lint)
       .catch(exitWithError);
@@ -62,6 +67,11 @@ api.lint = function() {
  */
 api.test = function() {
   const configs = configHelpers.getMergedPacorc();
+
+  if (configs.test === false) {
+    console.log('test is explicitly disabled.');
+    return Q();
+  }
 
   if (typeof configs.test === 'string') {
     return comeondo.exec(configs.test)
@@ -90,6 +100,11 @@ api.verify = function() {
  */
 api.build = function(options = {}) {
   const configs = configHelpers.getMergedPacorc();
+
+  if (configs.build === false) {
+    console.log('build is explicitly disabled.');
+    return Q();
+  }
 
   const packageCwdOptions = {
     cwd: process.env.PACO_PACKAGE_PATH,

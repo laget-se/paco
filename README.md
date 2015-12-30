@@ -58,17 +58,20 @@ The defaults are:
 // will be parsed as JSON.
 //
 {
-  // 1. If a string, will be executed as a command
-  // 2. If true and package.json includes a lint script, `npm run lint` will be executed
-  // 3. Skip
+  // 1. If false, do nothing
+  // 2. If a string, will be executed as a command
+  // 3. If true and package.json includes a lint script, `npm run lint` will be executed
+  // 4. Skip
   "lint": true,
 
-  // 1. If a string, will be executed as a command
-  // 2. If true and package.json includes a test script, `npm test` will be executed
-  // 3. Skip
+  // 1. If false, do nothing
+  // 2. If a string, will be executed as a command
+  // 3. If true and package.json includes a test script, `npm test` will be executed
+  // 4. Skip
   "test": true,
 
-  // A list of commands to run
+  // 1. If false, do nothing
+  // 2. If an array, runs all strings in the array as commands
   "build": [
     "%root_paco_path%/node_modules/.bin/babel %package_path%/src --out-dir %package_path%/dist"
   ],
@@ -187,4 +190,4 @@ paco comes from my personal needs, but if it's useful to you, please chip in!
 * [x] String variables for inserting package name into commit messages
 * [ ] Break out publishing and pushing into `paco publish`
 * [x] String variables for resolved paths in `.pacorc`
-* [ ] Allow disabling of tasks
+* [x] Allow disabling of tasks
