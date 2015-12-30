@@ -12,7 +12,7 @@ const paco = require('../api');
 // Task
 module.exports = function(_yargs) {
   _yargs.command('config', 'Gets and sets local paco configs', (yargs) => {
-    yargs.usage('paco config [key] [value]');
+    yargs.usage('paco config [key [value]]');
     require('./options/help')(yargs);
 
     const argv = yargs.argv;

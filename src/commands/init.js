@@ -21,7 +21,7 @@ module.exports = function(_yargs) {
 
     if (!argv.help) {
       const pacorcJson = require('../pacorc-default.js');
-      const pacorcContents = jsonpretty(pacorcJson);
+      const pacorcContents = JSON.stringify(pacorcJson, null, '  ');
 
       fs.writeFile(path.resolve(process.cwd(), '.pacorc'), pacorcContents, { encoding: 'utf8' }, (err) => {
         if (err) {

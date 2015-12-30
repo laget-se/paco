@@ -59,14 +59,14 @@ The defaults are:
 //
 {
   // 1. If a string, will be executed as a command
-  // 2. If package.json includes a lint script, `npm run lint` will be executed
+  // 2. If true and package.json includes a lint script, `npm run lint` will be executed
   // 3. Skip
-  "lint": null,
+  "lint": true,
 
   // 1. If a string, will be executed as a command
-  // 2. If package.json includes a test script, `npm test` will be executed
+  // 2. If true and package.json includes a test script, `npm test` will be executed
   // 3. Skip
-  "test": null,
+  "test": true,
 
   // A list of commands to run
   "build": [

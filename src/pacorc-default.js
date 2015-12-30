@@ -1,5 +1,7 @@
 
 module.exports = {
+  "lint": true,
+  "test": true,
   "build": [
     "babel src --out-dir dist"
   ],

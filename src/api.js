@@ -1,7 +1,6 @@
 
 const Q = require('q');
 const comeondo = require('comeondo');
-const jsonpretty = require('json-pretty');
 
 const bump = require('./helpers/bump');
 const configHelpers = require('./helpers/local-configs');
@@ -31,11 +30,11 @@ api.config = function(options) {
   }
   else if (key) {
     const configValue = configHelpers.getConfig(key);
-    return configValue;
+    return JSON.stringify(configValue, null, '  ');
   }
   else {
     const allConfigs = configHelpers.getMergedPacorc();
-    return jsonpretty(allConfigs);
+    return JSON.stringify(allConfigs, null, '  ');
   }
 }
 

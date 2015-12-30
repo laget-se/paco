@@ -54,24 +54,24 @@ function getMergedPacorc() {
 
   configPaths.reverse();
 
-  for (let path of configPaths) {
-    const config = getFileAsJson(path);
-    mergedConfigs = deepExtend(mergedConfigs, config);
+  for (let configPath of configPaths) {
+    const config = getFileAsJson(configPath);
+    mergedConfigs = deepExtend({}, mergedConfigs, config);
   }
 
   return mergedConfigs;
 }
 
 function getNearestPacorcPath(startPath) {
-  return pathHelpers.getNearestPathToFileWithName('.pacorc', startPath);
+  return pathHelpers.getNearestPathToFileWithName('.pacorc', startPath || process.cwd());
 }
 
 function getNearestPackageJSONPath(startPath) {
-  return pathHelpers.getNearestPathToFileWithName('package.json', startPath);
+  return pathHelpers.getNearestPathToFileWithName('package.json', startPath || process.cwd());
 }
 
 function getRootPacorcPath(startPath) {
-  return pathHelpers.getHighestPathToFileNamed('.pacorc', startPath);
+  return pathHelpers.getHighestPathToFileNamed('.pacorc', startPath || process.cwd());
 }
 
 /**
@@ -97,7 +97,7 @@ function getConfig(key) {
  * @param {any}    value A config value
  */
 function setConfig(key, value) {
-  const configs = getPacorc();
+  const configs = getNearestPacorc();
   const defaultPacorcMap = objectify(defaultPacorc);
 
   if (defaultPacorcMap.isSet(key)) {
@@ -112,9 +112,10 @@ function setConfig(key, value) {
 }
 
 function savePacorc(configs) {
-  const configContents = jsonpretty(configs);
+  const configsContents = JSON.stringify(configs, null, '  ');
+  const pacorcPath = getNearestPacorcPath();
 
-  fs.writeFile(path.resolve(process.cwd(), '.pacorc'), configContents, { encoding: 'utf8' }, (err) => {
+  fs.writeFile(pacorcPath, configsContents, { encoding: 'utf8' }, (err) => {
     if (err) {
       throw err;
     }
