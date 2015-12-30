@@ -3,6 +3,19 @@ const path = require('path');
 const fileExists = require('file-exists');
 
 /**
+ * Returns an interpolated string where path variables has been
+ * replaced with actual paths.
+ */
+function getInterpolatedPaths(pathStr) {
+  if (!pathStr)
+    return pathStr;
+
+  return pathStr
+    .replace(/%root_paco_path%/g, process.env.PACO_ROOT_PATH)
+    .replace(/%package_path%/g, process.env.PACO_PACKAGE_PATH);
+}
+
+/**
  * Returns a pathname's relative path to the paco root
  */
 function pathRelativeToRoot(pathname) {
@@ -88,6 +101,7 @@ function getHighestDirContainingFileNamed(filename, startPath) {
 }
 
 module.exports = {
+  getInterpolatedPaths,
   pathRelativeToRoot,
   pathRelativeToPackage,
   getNearestPathToFileWithName,

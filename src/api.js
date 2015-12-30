@@ -47,11 +47,11 @@ api.lint = function() {
 
   if (typeof configs.lint === 'string') {
     return comeondo.exec(configs.lint)
-      .catch(err => process.exit(err ? 1 : 0));
+      .catch(exitWithError);
   }
   else if (npmHelpers.hasTask('lint')) {
     return comeondo.exec(`npm run lint`)
-      .catch(err => process.exit(err ? 1 : 0));
+      .catch(exitWithError);
   }
   else {
     return Q();
@@ -66,11 +66,11 @@ api.test = function() {
 
   if (typeof configs.test === 'string') {
     return comeondo.exec(configs.test)
-      .catch(err => process.exit(err ? 1 : 0));
+      .catch(exitWithError);
   }
   else if (npmHelpers.hasTask('test')) {
     return comeondo.exec(`npm run test`)
-      .catch(err => process.exit(err ? 1 : 0));
+      .catch(exitWithError);
   }
   else {
     return Q();
@@ -90,18 +90,24 @@ api.verify = function() {
  * Build
  */
 api.build = function(options = {}) {
-  if (npmHelpers.hasTask('build')) {
-    return comeondo.exec(`npm run build`)
-      .catch(err => process.exit(err ? 1 : 0));
+  const configs = configHelpers.getMergedPacorc();
+
+  const packageCwdOptions = {
+    cwd: process.env.PACO_PACKAGE_PATH,
+  };
+
+  if (configs.build) {
+    const commands = (configs.build || []).map(paths.getInterpolatedPaths);
+
+    return comeondo.run(commands, packageCwdOptions)
+      .catch(exitWithError);
+  }
+  else if (npmHelpers.hasTask('build')) {
+    return comeondo.exec(`npm run build`, packageCwdOptions)
+      .catch(exitWithError);
   }
   else {
-    const src = paths.pathRelativeToPackage(options.src);
-    const dest = paths.pathRelativeToPackage(options.dest);
-
-    return comeondo.exec(`${options.transpiler} ${src} --out-dir ${dest}`, {
-        cwd: process.env.PACO_ROOT_PATH,
-      })
-      .catch(err => process.exit(err ? 1 : 0));
+    return Q();
   }
 }
 

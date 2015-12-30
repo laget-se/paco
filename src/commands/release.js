@@ -14,9 +14,6 @@ module.exports = function(_yargs) {
   _yargs.command('release', 'Publishes a new release (lint, test, build, bump, publish, push)', (yargs) => {
     yargs.usage('paco release [version] [options]');
 
-    require('./options/build-transpiler.js')(yargs);
-    require('./options/build-src.js')(yargs);
-    require('./options/build-dest.js')(yargs);
     require('./options/tag')(yargs);
     require('./options/message')(yargs);
     require('./options/commit')(yargs);

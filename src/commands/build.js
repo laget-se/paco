@@ -9,12 +9,12 @@
 // Dependencies
 const paco = require('../api');
 
+const description = 'Runs all scripts provided in the build config in .pacorc, or `npm run build` if defined';
+
 // Task
 module.exports = function(_yargs) {
-  _yargs.command('build', 'Build ES5 compatible files into your distribution directory', (yargs) => {
-    require('./options/build-transpiler.js')(yargs);
-    require('./options/build-src.js')(yargs);
-    require('./options/build-dest.js')(yargs);
+  _yargs.command('build', description, (yargs) => {
+    yargs.usage(`Usage: paco build\n\n${description}`);
     require('./options/help.js')(yargs);
 
     const argv = yargs.argv;

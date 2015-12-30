@@ -1,12 +1,8 @@
 
 module.exports = {
-  "lint": null,
-  "test": null,
-  "build": {
-    "transpiler": "babel",
-    "src": "src",
-    "dest": "dist"
-  },
+  "build": [
+    "babel src --out-dir dist"
+  ],
   "bump": {
     "tag": false,
     "commit": false,

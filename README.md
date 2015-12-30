@@ -68,20 +68,19 @@ The defaults are:
   // 3. Skip
   "test": null,
 
-  "build": {
-    // The transpiler to use when building
-    "transpiler": "babel",
-    // The relative path to the source directory
-    "src": "src",
-    // The relative path to the distribution directory
-    "dist": "dist"
-  },
+  // A list of commands to run
+  "build": [
+    "%root_paco_path%/node_modules/.bin/babel %package_path%/src --out-dir %package_path%/dist"
+  ],
 
   "bump": {
+
     // Whether to create a git tag when bumping the package version
     "tag": false,
+
     // Whether to create a commit when bumping the package version
     "commit": false,
+
     // Commit message template for bump commits.
     // Supported string variables:
     //
@@ -94,8 +93,10 @@ The defaults are:
   },
 
   "release": {
+
     // Whether to automatically push changes to the upstream repo
     "push": false,
+
     // Whether to push git tags to the upstream repo
     "pushTags": false
   }
@@ -120,29 +121,29 @@ paco <command> -h
 paco init
 
 # Gets or sets local paco configs
-# e.g. `paco config build.dest www`
+# e.g. `paco config release.pushTags false`
 paco config [key] [value]
 
+# Runs test command from .pacorc or `npm run test` if defined
 paco test
-# -> Runs test command from .pacorc or `npm run test` if defined
 
+# Runs lint command from .pacorc or `npm run lint` if defined
 paco lint
-# -> Runs lint command from .pacorc or `npm run lint` if defined
 
 paco verify
 # -> `paco lint`
 # -> `paco test`
 
+# Runs all scripts provided in the build config in .pacorc, or `npm run build` if defined
 paco build
-# -> `npm run build` if defined, or `babel {src} --out-dir {dest}` otherwise
 
 paco prepare
 # -> `paco verify`
 # -> `paco build`
 
-paco bump [--tag] [--message="Something about the new version: %s"] [--commit] [version]
+paco bump [--tag] [--message="(%name%) Something about the new version: %s"] [--commit] [version]
 # -> `npm [--no-git-tag-version] version {version} [-m {message}]`
-# -> `git commit -am {message}` if --commit
+# -> `git add . && git commit -m {message}` if not --tag and --commit
 
 paco release [version]
 # -> `paco test`
@@ -181,7 +182,9 @@ paco comes from my personal needs, but if it's useful to you, please chip in!
 * [ ] Skip bump script for first ever publish
 * [x] `paco config [key] [value]` -> save config to `.pacorc`
 * [ ] Option to inherit npm scripts from parent package
-* [ ] Custom lint, test and build command line calls
+* [x] Custom lint, test and build command line calls
 * [ ] Test npm publishing before running release
 * [x] String variables for inserting package name into commit messages
 * [ ] Break out publishing and pushing into `paco publish`
+* [x] String variables for resolved paths in `.pacorc`
+* [ ] Allow disabling of tasks
