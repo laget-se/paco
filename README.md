@@ -82,7 +82,14 @@ The defaults are:
     "tag": false,
     // Whether to create a commit when bumping the package version
     "commit": false,
-    // Commit message template for bump commits
+    // Commit message template for bump commits.
+    // Supported string variables:
+    //
+    // * %s - The new package version
+    // * %scope% - The package's npm scope (aka owner)
+    // * %name% - The package's name (without scope)
+    //
+    // For example: "%scope% (%name%) - Updates version to %s"
     "message": false
   },
 

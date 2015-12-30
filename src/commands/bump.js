@@ -13,7 +13,7 @@ const paco = require('../api');
 
 // Task
 module.exports = function(_yargs) {
-  _yargs.command('bump', 'Bumps the package.json version, optionally creating a git tag', (yargs) => {
+  _yargs.command('bump', 'Bumps the package.json version, optionally creating a git commit and/or tag', (yargs) => {
     yargs.usage('paco bump [version] [options]');
     require('./options/tag')(yargs);
     require('./options/message')(yargs);

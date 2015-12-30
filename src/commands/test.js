@@ -11,7 +11,7 @@ const paco = require('../api');
 
 // Task
 module.exports = function(_yargs) {
-  _yargs.command('test', 'Runs `npm test` if defined', (yargs) => {
+  _yargs.command('test', 'Runs test script form .pacorc or `npm test` if defined', (yargs) => {
     require('./options/help')(yargs);
 
     const argv = yargs.argv;
