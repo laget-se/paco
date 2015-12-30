@@ -59,6 +59,11 @@ The defaults are:
 //
 {
   // 1. If a string, will be executed as a command
+  // 2. If package.json includes a lint script, `npm run lint` will be executed
+  // 3. Skip
+  "lint": null,
+
+  // 1. If a string, will be executed as a command
   // 2. If package.json includes a test script, `npm test` will be executed
   // 3. Skip
   "test": null,
@@ -112,10 +117,10 @@ paco init
 paco config [key] [value]
 
 paco test
-# -> `npm run test`
+# -> Runs test command from .pacorc or `npm run test` if defined
 
 paco lint
-# -> `npm run lint` if defined
+# -> Runs lint command from .pacorc or `npm run lint` if defined
 
 paco verify
 # -> `paco lint`

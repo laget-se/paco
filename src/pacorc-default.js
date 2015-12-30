@@ -1,5 +1,6 @@
 
 module.exports = {
+  "lint": null,
   "test": null,
   "build": {
     "transpiler": "babel",

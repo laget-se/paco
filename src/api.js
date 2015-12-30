@@ -43,7 +43,13 @@ api.config = function(options) {
  * Lint
  */
 api.lint = function() {
-  if (npmHelpers.hasTask('lint')) {
+  const configs = configHelpers.getMergedPacorc();
+
+  if (typeof configs.lint === 'string') {
+    return comeondo.exec(configs.lint)
+      .catch(err => process.exit(err ? 1 : 0));
+  }
+  else if (npmHelpers.hasTask('lint')) {
     return comeondo.exec(`npm run lint`)
       .catch(err => process.exit(err ? 1 : 0));
   }
