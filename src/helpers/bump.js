@@ -4,6 +4,15 @@ const comeondo = require('comeondo');
 
 const configHelpers = require('./local-configs');
 
+function getInterpolatedCommitMessage(message) {
+  const packageJson = require(process.env.PACO_PACKAGE_JSON_PATH);
+  const [scope, name] = packageJson.name.split('/');
+
+  return message
+    .replace('%scope%', scope)
+    .replace('%name%', name);
+}
+
 function bump(options) {
   const versionCmd = {
     cmd: `npm`,
@@ -17,7 +26,8 @@ function bump(options) {
     versionCmd.args.push('--no-git-tag-version');
   }
   else if (options.message) {
-    versionCmd.args.push('-m', options.message);
+    const message = getInterpolatedCommitMessage(options.message);
+    versionCmd.args.push('-m', message);
   }
 
   return comeondo.exec(versionCmd, { cwd: process.env.PACO_PACKAGE_PATH, })
@@ -30,7 +40,8 @@ function bumpAndCommit(options) {
   return comeondo.exec(versionCmd, { cwd: process.env.PACO_PACKAGE_PATH, })
     .then(() => {
       const newVersion = configHelpers.getNearestPackageJson().version;
-      const commitMessage = options.message.replace('%s', newVersion);
+      let commitMessage = getInterpolatedCommitMessage(options.message);
+      commitMessage = commitMessage.replace('%s', newVersion);
 
       return comeondo.run([
         `git add .`,
