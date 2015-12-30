@@ -1,4 +1,7 @@
 {
+  "build": [
+    "node_modules/.bin/babel src --out-dir dist"
+  ],
   "bump": {
     "tag": true,
     "commit": true,
