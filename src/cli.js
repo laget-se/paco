@@ -31,13 +31,11 @@ process.env.PACO_ROOT_PATH = rootPacorcPath;
 process.env.PACO_PACKAGE_PATH = path.dirname(nearestPackageJsonPath);
 process.env.PACO_PACKAGE_JSON_PATH = nearestPackageJsonPath;
 
-console.log('env:', {
-  PACO_ROOT_PATH: process.env.PACO_ROOT_PATH,
-  PACO_PACKAGE_PATH: process.env.PACO_PACKAGE_PATH,
-  PACO_PACKAGE_JSON_PATH: process.env.PACO_PACKAGE_JSON_PATH,
-});
-
-// process.exit(0);
+// console.log('env:', {
+//   PACO_ROOT_PATH: process.env.PACO_ROOT_PATH,
+//   PACO_PACKAGE_PATH: process.env.PACO_PACKAGE_PATH,
+//   PACO_PACKAGE_JSON_PATH: process.env.PACO_PACKAGE_JSON_PATH,
+// });
 
 
 /* --------------------------------------------------- *\
