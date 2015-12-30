@@ -83,6 +83,10 @@ The defaults are:
 }
 ```
 
+#### Sub-package overrides
+
+If you've got nested npm packages, you can place a `.pacorc` inside a child package's root directory and override parent configs.
+
 <a name="usage"></a>
 ### Usage
 
@@ -106,8 +110,16 @@ paco test
 paco lint
 # -> `npm run lint` if defined
 
+paco verify
+# -> `paco lint`
+# -> `paco test`
+
 paco build
 # -> `npm run build` if defined, or `babel {src} --out-dir {dest}` otherwise
+
+paco prepare
+# -> `paco verify`
+# -> `paco build`
 
 paco bump [--tag] [--message="Something about the new version: %s"] [--commit] [version]
 # -> `npm [--no-git-tag-version] version {version} [-m {message}]`
@@ -126,7 +138,16 @@ paco release [version]
 <a name="development"></a>
 ### Development
 
-paco comes from and fills my personal needs, but if it's useful to you, please chip in!
+```bash
+# Make paco available globally
+cd path/to/paco
+npm link
+
+# Run babel with a --watch to develop and test instantly
+npm run dev
+```
+
+paco comes from my personal needs, but if it's useful to you, please chip in!
 
 <a name="todos"></a>
 ### Todos
