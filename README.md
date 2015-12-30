@@ -58,6 +58,11 @@ The defaults are:
 // will be parsed as JSON.
 //
 {
+  // 1. If a string, will be executed as a command
+  // 2. If package.json includes a test script, `npm test` will be executed
+  // 3. Skip
+  "test": null,
+
   "build": {
     // The transpiler to use when building
     "transpiler": "babel",
@@ -66,6 +71,7 @@ The defaults are:
     // The relative path to the distribution directory
     "dist": "dist"
   },
+
   "bump": {
     // Whether to create a git tag when bumping the package version
     "tag": false,
@@ -74,6 +80,7 @@ The defaults are:
     // Commit message template for bump commits
     "message": false
   },
+
   "release": {
     // Whether to automatically push changes to the upstream repo
     "push": false,
@@ -156,10 +163,13 @@ paco comes from my personal needs, but if it's useful to you, please chip in!
 * [x] `paco verifiy` -> `paco lint && paco test`
 * [x] `paco prepare` -> `paco verify && paco build`
 * [ ] Add support for a root/parent `.pacorc`
-* [ ] Add support for merging `.pacorc` configs infinitely down the directory tree
+* [x] Add support for merging `.pacorc` configs infinitely down the directory tree
 * [x] Port pure cli to an api which the cli uses
 * [ ] Log start and finish info for all commands
 * [ ] Skip bump script for first ever publish
 * [x] `paco config [key] [value]` -> save config to `.pacorc`
 * [ ] Option to inherit npm scripts from parent package
 * [ ] Custom lint, test and build command line calls
+* [ ] Test npm publishing before running release
+* [ ] String variables for inserting package name into commit messages
+* [ ] Break out publishing and pushing into `paco publish`
