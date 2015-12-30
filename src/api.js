@@ -56,7 +56,13 @@ api.lint = function() {
  * Test
  */
 api.test = function() {
-  if (npmHelpers.hasTask('test')) {
+  const configs = configHelpers.getMergedPacorc();
+
+  if (typeof configs.test === 'string') {
+    return comeondo.exec(configs.test)
+      .catch(err => process.exit(err ? 1 : 0));
+  }
+  else if (npmHelpers.hasTask('test')) {
     return comeondo.exec(`npm run test`)
       .catch(err => process.exit(err ? 1 : 0));
   }

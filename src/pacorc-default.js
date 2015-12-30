@@ -1,5 +1,6 @@
 
 module.exports = {
+  "test": null,
   "build": {
     "transpiler": "babel",
     "src": "src",
