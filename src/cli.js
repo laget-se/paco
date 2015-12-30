@@ -14,7 +14,8 @@ var yargs = require('yargs')
   .alias('h', 'help')
   .version(function() {
     return require('../package').version;
-  });
+  })
+  .alias('v', 'version');
 
 /* --------------------------------------------------- *\
    Environment setup
