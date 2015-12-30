@@ -140,3 +140,5 @@ paco comes from and fills my personal needs, but if it's useful to you, please c
 * [ ] Log start and finish info for all commands
 * [ ] Skip bump script for first ever publish
 * [x] `paco config [key] [value]` -> save config to `.pacorc`
+* [ ] Option to inherit npm scripts from parent package
+* [ ] Custom lint, test and build command line calls
