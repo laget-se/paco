@@ -38,7 +38,7 @@ function getNearestPathToFileWithName(filename, startPath) {
   if (hasFile)
     return path.join(currPath, filename);
   else
-    return new Error(`No .pacorc available in directory tree`);
+    return new Error(`No ${filename} available in directory tree`);
 }
 
 /**
@@ -74,7 +74,9 @@ function getHighestPathToFileNamed(filename, startPath) {
     reachedRoot = currPath === '/';
   }
 
-  return path.join(lastPath, filename);
+  return lastPath
+    ? path.join(lastPath, filename)
+    : new Error(`No ${filename} available in directory tree`);
 }
 
 /**
