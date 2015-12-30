@@ -183,5 +183,5 @@ paco comes from my personal needs, but if it's useful to you, please chip in!
 * [ ] Option to inherit npm scripts from parent package
 * [ ] Custom lint, test and build command line calls
 * [ ] Test npm publishing before running release
-* [ ] String variables for inserting package name into commit messages
+* [x] String variables for inserting package name into commit messages
 * [ ] Break out publishing and pushing into `paco publish`
