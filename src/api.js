@@ -1,6 +1,8 @@
 
 const Q = require('q');
 const comeondo = require('comeondo');
+const fs = require('fs');
+const path = require('path');
 
 const bump = require('./helpers/bump');
 const configHelpers = require('./helpers/local-configs');
@@ -20,9 +22,29 @@ function exitWithError(err) {
 const api = {};
 
 /**
+ * Init
+ */
+api.init = function() {
+  const deferred = Q.defer();
+
+  const pacorcJson = require('./pacorc-default.js');
+  const pacorcContents = JSON.stringify(pacorcJson, null, '  ');
+
+  fs.writeFile(path.join(process.cwd(), '.pacorc'), pacorcContents, { encoding: 'utf8' }, (err) => {
+    if (err) {
+      exitWithError(err);
+    }
+
+    deferred.resolve();
+  });
+
+  return deferred.promise;
+}
+
+/**
  * Config
  */
-api.config = function(options) {
+api.config = function(options = {}) {
   const { key, value } = options;
 
   if (key && value) {

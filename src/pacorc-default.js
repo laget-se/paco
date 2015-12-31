@@ -8,7 +8,7 @@ module.exports = {
   "bump": {
     "tag": false,
     "commit": false,
-    "message": false
+    "message": "Updates to version %s"
   },
   "release": {
     "push": false,
