@@ -66,6 +66,8 @@ api.config = function(options = {}) {
 api.lint = function() {
   const configs = configHelpers.getMergedPacorc();
 
+  const npmConfig = { traverse: configs.traverse };
+
   if (configs.lint === false) {
     console.log('lint is explicitly disabled.');
     return Q();
@@ -75,8 +77,8 @@ api.lint = function() {
     return comeondo.exec(configs.lint)
       .catch(exitWithError);
   }
-  else if (npmHelpers.hasTask('lint')) {
-    return npmHelpers.runTask('lint')
+  else if (npmHelpers.hasTask('lint', npmConfig)) {
+    return npmHelpers.runTask('lint', npmConfig)
       .catch(exitWithError);
   }
   else {
@@ -99,8 +101,8 @@ api.test = function() {
     return comeondo.exec(configs.test)
       .catch(exitWithError);
   }
-  else if (npmHelpers.hasTask('test')) {
-    return npmHelpers.runTask('test')
+  else if (npmHelpers.hasTask('test', npmConfig)) {
+    return npmHelpers.runTask('test', npmConfig)
       .catch(exitWithError);
   }
   else {

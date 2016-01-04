@@ -1,5 +1,6 @@
 
 module.exports = {
+  "traverse": true,
   "lint": true,
   "test": true,
   "build": [

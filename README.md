@@ -32,14 +32,10 @@ The core stuff:
 * **Defaults to npm tasks** when they are defined or when no explicit commands have been provided – i.e. `paco build` -> `npm run build` when available.
 * **Makes use of built in npm functionality.** Tags, commits, commit messages and version bumps uses npm's built-in API.
 
-Current limitations:
-
-* Only supports babel transpiling internally
-
 Wishlist:
 
 * [x] Support for running `paco` in subdirectories
-* [ ] Support for merging configs from current working directory with parent configs
+* [x] Support for merging configs from current working directory with parent configs
 * [ ] Support for defining root configs wherever you want, i.e. manually stop searching parent directories for `.pacorc`
 * [ ] Proper release notes support, covering git releases, markdown changelog etc.
 
@@ -58,6 +54,10 @@ The defaults are:
 // will be parsed as JSON.
 //
 {
+  // Whether to search for and execute npm scripts in parent modules up
+  // the directory tree
+  "traverse": true,
+
   // 1. If false, do nothing
   // 2. If a string, will be executed as a command
   // 3. If true and package.json includes a lint script, `npm run lint` will be executed
@@ -184,7 +184,7 @@ paco comes from my personal needs, but if it's useful to you, please chip in!
 * [ ] Log start and finish info for all commands
 * [ ] Skip bump script for first ever publish
 * [x] `paco config [key] [value]` -> save config to `.pacorc`
-* [ ] Option to inherit npm scripts from parent package
+* [x] Option to inherit npm scripts from parent package
 * [x] Custom lint, test and build command line calls
 * [ ] Test npm publishing before running release
 * [x] String variables for inserting package name into commit messages
