@@ -76,7 +76,7 @@ api.lint = function() {
       .catch(exitWithError);
   }
   else if (npmHelpers.hasTask('lint')) {
-    return comeondo.exec(`npm run lint`)
+    return npmHelpers.runTask('lint')
       .catch(exitWithError);
   }
   else {
@@ -100,7 +100,7 @@ api.test = function() {
       .catch(exitWithError);
   }
   else if (npmHelpers.hasTask('test')) {
-    return comeondo.exec(`npm run test`)
+    return npmHelpers.runTask('test')
       .catch(exitWithError);
   }
   else {
@@ -139,7 +139,7 @@ api.build = function(options = {}) {
       .catch(exitWithError);
   }
   else if (npmHelpers.hasTask('build')) {
-    return comeondo.exec(`npm run build`, packageCwdOptions)
+    return npmHelpers.runTask('build', packageCwdOptions)
       .catch(exitWithError);
   }
   else {

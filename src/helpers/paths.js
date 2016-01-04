@@ -1,6 +1,7 @@
 
 const path = require('path');
 const fileExists = require('file-exists');
+const uppity = require('uppity');
 
 /**
  * Returns an interpolated string where path variables has been
@@ -28,6 +29,21 @@ function pathRelativeToRoot(pathname) {
  */
 function pathRelativeToPackage(pathname) {
   return path.resolve(process.env.PACO_PACKAGE_PATH, pathname);
+}
+
+/**
+ * Traverses the directory tree from a starting point and returns
+ * an array of all files with a given filename.
+ */
+function getTraversedFilesNamed(filename, options = {}) {
+  options.startAt = options.startAt || process.cwd();
+  options.stopAt  = options.stopAt  || path.resolve('~');
+
+  const lowestDepth = options.stopAt.split(path.sep).length;
+
+  return uppity(filename).filter(file => {
+    return path.dirname(file).split(path.sep).length >= lowestDepth;
+  });
 }
 
 /**
@@ -104,6 +120,7 @@ module.exports = {
   getInterpolatedPaths,
   pathRelativeToRoot,
   pathRelativeToPackage,
+  getTraversedFilesNamed,
   getNearestPathToFileWithName,
   getNearestDirContainingFileNamed,
   getHighestPathToFileNamed,
