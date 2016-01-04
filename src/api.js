@@ -92,6 +92,8 @@ api.lint = function() {
 api.test = function() {
   const configs = configHelpers.getMergedPacorc();
 
+  const npmConfig = { traverse: configs.traverse };
+
   if (configs.test === false) {
     console.log('test is explicitly disabled.');
     return Q();
@@ -130,18 +132,18 @@ api.build = function(options = {}) {
     return Q();
   }
 
-  const packageCwdOptions = {
-    cwd: process.env.PACO_PACKAGE_PATH,
+  const npmConfig = {
+    traverse: configs.traverse
   };
 
   if (configs.build) {
     const commands = (configs.build || []).map(paths.getInterpolatedPaths);
 
-    return comeondo.run(commands, packageCwdOptions)
+    return comeondo.run(commands, { cwd: process.env.PACO_PACKAGE_PATH })
       .catch(exitWithError);
   }
-  else if (npmHelpers.hasTask('build')) {
-    return npmHelpers.runTask('build', packageCwdOptions)
+  else if (npmHelpers.hasTask('build', npmConfig)) {
+    return npmHelpers.runTask('build', npmConfig)
       .catch(exitWithError);
   }
   else {
