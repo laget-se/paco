@@ -5,6 +5,7 @@
   "main": "dist/cli.js",
   "bin": "bin/paco.js",
   "files": [
+    "bin",
     "dist"
   ],
   "scripts": {
