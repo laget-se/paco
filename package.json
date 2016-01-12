@@ -9,7 +9,8 @@
     "dist"
   ],
   "scripts": {
-    "dev": "babel --watch src --out-dir dist"
+    "build": "babel src --out-dir dist",
+    "dev": "npm run build -- --watch"
   },
   "repository": {
     "type": "git",
