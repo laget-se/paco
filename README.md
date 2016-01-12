@@ -2,42 +2,79 @@
 
 # paco
 
-**paco** is a node package development/distribution utility kit.
+**`paco`** is an npm module development and distribution CLI utility, optimized for package libraries.
 
-I grew tired of defining the same or similar build scripts here and there, especially when developing package libraries with lots of npm modules in the same repo. This is an effort to abstract package-related npm/gulp/grunt/whatever scripting for both regular packages and package libraries.
+![paco](docs/paco-boxes.png)
 
-For now, paco is mainly designed to be used globally installed, although it should work for local installs.
+`paco` aims to make module development easier, especially when working with module libraries (e.g. one repo, many modules). This is addressed by providing the following features:
+
+* Grouping and automation of common tasks into single tasks (e.g. [`paco bump`](#usage) or [`paco release`](#usage))
+* Shared, inheritable and overridable [configurations](#pacorc) for all modules in a directory
+* Shared npm scripts from parent `package.json` files (e.g. one build script to rule them all)
+* Git commit message templates when bumping module versions
+
+*For now, paco is mainly designed to be used as a global install, although it'll probably work just as well as a local developement depencency.*
 
 **Table of contents**
 
 * [Installation](#installation)
-* [Features](#features)
-* [Configration with `.pacorc`](#pacorc)
 * [Usage](#usage)
+* [Configration with `.pacorc`](#pacorc)
 * [Development](#development)
 * [Todos](#todos)
 
 <a name="installation"></a>
 ### Installation
 
-`npm install paco`
+`npm install -g paco`
 
-<a name="features"></a>
-### Features
+<a name="usage"></a>
+### Usage
 
-The core stuff:
+```bash
+# Lists available commands
+paco -h
 
-* Provides cli commands for common package management tasks such as **linting**, **testing**, **building**, **version bumping** and **publishing**.
-* **Highly configurable.** Enable or disable the features you want.
-* **Defaults to npm tasks** when they are defined or when no explicit commands have been provided – i.e. `paco build` -> `npm run build` when available.
-* **Makes use of built in npm functionality.** Tags, commits, commit messages and version bumps uses npm's built-in API.
+# Show help for a given command
+paco <command> -h
 
-Wishlist:
+# Creates a default .pacorc configuration file
+paco init
 
-* [x] Support for running `paco` in subdirectories
-* [x] Support for merging configs from current working directory with parent configs
-* [ ] Support for defining root configs wherever you want, i.e. manually stop searching parent directories for `.pacorc`
-* [ ] Proper release notes support, covering git releases, markdown changelog etc.
+# Gets or sets local paco configs
+# e.g. `paco config release.pushTags false`
+paco config [key] [value]
+
+# Runs test command from .pacorc or `npm run test` if defined
+paco test
+
+# Runs lint command from .pacorc or `npm run lint` if defined
+paco lint
+
+paco verify
+# -> `paco lint`
+# -> `paco test`
+
+# Runs all scripts provided in the build config in .pacorc, or `npm run build` if defined
+paco build
+
+paco prepare
+# -> `paco verify`
+# -> `paco build`
+
+paco bump [--tag] [--message="(%name%) Something about the new version: %s"] [--commit] [version]
+# -> `npm [--no-git-tag-version] version {version} [-m {message}]`
+# -> `git add . && git commit -m {message}` if not --tag and --commit
+
+paco release [version]
+# -> `paco test`
+# -> `paco lint`
+# -> `paco build`
+# -> `paco bump {version}`
+# -> `npm publish`
+# -> `git push` (optional)
+# -> `git push --tags` (optional)
+```
 
 <a name="pacorc"></a>
 ### Configuration with `.pacorc`
@@ -109,54 +146,6 @@ The defaults are:
 #### Sub-package overrides
 
 If you've got nested npm packages, you can place a `.pacorc` inside a child package's root directory and override parent configs.
-
-<a name="usage"></a>
-### Usage
-
-```bash
-# Lists available commands
-paco -h
-
-# Show help for a given command
-paco <command> -h
-
-# Creates a default .pacorc
-paco init
-
-# Gets or sets local paco configs
-# e.g. `paco config release.pushTags false`
-paco config [key] [value]
-
-# Runs test command from .pacorc or `npm run test` if defined
-paco test
-
-# Runs lint command from .pacorc or `npm run lint` if defined
-paco lint
-
-paco verify
-# -> `paco lint`
-# -> `paco test`
-
-# Runs all scripts provided in the build config in .pacorc, or `npm run build` if defined
-paco build
-
-paco prepare
-# -> `paco verify`
-# -> `paco build`
-
-paco bump [--tag] [--message="(%name%) Something about the new version: %s"] [--commit] [version]
-# -> `npm [--no-git-tag-version] version {version} [-m {message}]`
-# -> `git add . && git commit -m {message}` if not --tag and --commit
-
-paco release [version]
-# -> `paco test`
-# -> `paco lint`
-# -> `paco build`
-# -> `paco bump {version}`
-# -> `npm publish`
-# -> `git push` (optional)
-# -> `git push --tags` (optional)
-```
 
 <a name="development"></a>
 ### Development
