@@ -159,24 +159,26 @@ npm link
 npm run dev
 ```
 
-paco comes from my personal needs, but if it's useful to you, please chip in!
+Pull requests are welcome.
 
 <a name="todos"></a>
 ### Todos
 
+* [x] `paco init` -> Create default `.pacorc`
 * [ ] `paco init` -> Wizard for creating a `.pacorc`
 * [x] `paco verifiy` -> `paco lint && paco test`
 * [x] `paco prepare` -> `paco verify && paco build`
-* [ ] Add support for a root/parent `.pacorc`
-* [x] Add support for merging `.pacorc` configs infinitely down the directory tree
+* [x] Support for merging `.pacorc` configs infinitely down the directory tree
+* [ ] Support for a defined root `.pacorc` (stop traversed config inheritance at wish)
 * [x] Port pure cli to an api which the cli uses
 * [ ] Log start and finish info for all commands
 * [ ] Skip bump script for first ever publish
 * [x] `paco config [key] [value]` -> save config to `.pacorc`
 * [x] Option to inherit npm scripts from parent package
 * [x] Custom lint, test and build command line calls
-* [ ] Test npm publishing before running release
+* [ ] Test npm publishing before running `release`
 * [x] String variables for inserting package name into commit messages
 * [ ] Break out publishing and pushing into `paco publish`
 * [x] String variables for resolved paths in `.pacorc`
 * [x] Allow disabling of tasks
+* [ ] Plugin support (presets, sugar etc.)
