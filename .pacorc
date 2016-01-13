@@ -1,5 +1,6 @@
 {
   "build": [
+    "node_modules/.bin/rimraf dist/*",
     "node_modules/.bin/babel src --out-dir dist"
   ],
   "bump": {
