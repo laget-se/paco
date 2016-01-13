@@ -37,7 +37,7 @@ function pathRelativeToPackage(pathname) {
  */
 function getTraversedFilesNamed(filename, options = {}) {
   options.startAt = options.startAt || process.cwd();
-  options.stopAt  = options.stopAt  || path.resolve('~');
+  options.stopAt  = options.stopAt  || path.parse(options.startAt).root;
 
   const lowestDepth = options.stopAt.split(path.sep).length;
 
@@ -51,23 +51,11 @@ function getTraversedFilesNamed(filename, options = {}) {
  * where searching starts from `startPath`.
  */
 function getNearestPathToFileWithName(filename, startPath) {
-  let currPath = startPath;
-  let hasFile = false;
-  let reachedRoot = false;
+  const allMatches = getTraversedFilesNamed(filename, { startAt: startPath });
 
-  while (hasFile === false && reachedRoot === false) {
-    hasFile = fileExists(path.join(currPath, filename));
-
-    if (!hasFile)
-      currPath = path.resolve(currPath, '..');
-
-    reachedRoot = currPath === '/';
-  }
-
-  if (hasFile)
-    return path.join(currPath, filename);
-  else
-    return new Error(`No ${filename} available in directory tree`);
+  return allMatches && allMatches.length > 0
+    ? allMatches[0]
+    : new Error(`No ${filename} available in directory tree`);
 }
 
 /**
@@ -89,22 +77,10 @@ function getNearestDirContainingFileNamed(filename, startPath) {
  * directory tree.
  */
 function getHighestPathToFileNamed(filename, startPath) {
-  let currPath = startPath;
-  let lastPath;
-  let reachedRoot = false;
+  const allMatches = getTraversedFilesNamed(filename, { startAt: startPath });
 
-  while (reachedRoot === false) {
-    if (fileExists(path.join(currPath, filename))) {
-      lastPath = currPath;
-    }
-
-    currPath = path.resolve(currPath, '..');
-
-    reachedRoot = currPath === '/';
-  }
-
-  return lastPath
-    ? path.join(lastPath, filename)
+  return allMatches && allMatches.length > 0
+    ? allMatches[allMatches.length - 1]
     : new Error(`No ${filename} available in directory tree`);
 }
 

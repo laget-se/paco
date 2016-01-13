@@ -42,16 +42,9 @@ function getNearestPacorc() {
 }
 
 function getMergedPacorc() {
-  let currentConfigDir = pathHelpers.getNearestDirContainingFileNamed('.pacorc', process.cwd());
-  const configPaths = [];
   let mergedConfigs = require('../pacorc-default');
 
-  while (path.isAbsolute(currentConfigDir)) {
-    configPaths.push(path.resolve(currentConfigDir, '.pacorc'));
-    currentConfigDir = path.resolve(currentConfigDir, '..');
-    currentConfigDir = pathHelpers.getNearestDirContainingFileNamed('.pacorc', currentConfigDir);
-  }
-
+  const configPaths = pathHelpers.getTraversedFilesNamed('.pacorc');
   configPaths.reverse();
 
   for (let configPath of configPaths) {
