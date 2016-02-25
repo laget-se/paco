@@ -3,9 +3,11 @@ const Q = require('q');
 const comeondo = require('comeondo');
 const fs = require('fs');
 const path = require('path');
+const colors = require('colors');
 
 const bump = require('./helpers/bump');
 const configHelpers = require('./helpers/local-configs');
+const gitHelpers = require('./helpers/git');
 const npmHelpers = require('./helpers/local-npm');
 const paths = require('./helpers/paths');
 
@@ -166,19 +168,26 @@ api.prepare = function(options) {
 api.bump = function(options) {
   const pacorc = configHelpers.getMergedPacorc();
 
-  const mergedOptions = {
-    version: options.version || 'patch',
-    tag: options.tag || pacorc.bump.tag,
-    commit: options.commit || pacorc.bump.commit,
-    message: options.message || pacorc.bump.message,
-  };
+  return gitHelpers.isCleanState().then((isClean) => {
+    if (!isClean) {
+      console.log(`\n${'Oh nose!'.red.bold}\nYou cannot bump the version number without commiting all changes in this package.\n`);
+      process.exit(1);
+    }
 
-  if (!mergedOptions.tag && mergedOptions.commit && mergedOptions.message) {
-    return bump.bumpAndCommit(mergedOptions);
-  }
-  else {
-    return bump.bump(mergedOptions);
-  }
+    const mergedOptions = {
+      version: options.version || 'patch',
+      tag: options.tag || pacorc.bump.tag,
+      commit: options.commit || pacorc.bump.commit,
+      message: options.message || pacorc.bump.message,
+    };
+
+    if (!mergedOptions.tag && mergedOptions.commit && mergedOptions.message) {
+      return bump.bumpAndCommit(mergedOptions);
+    }
+    else {
+      return bump.bump(mergedOptions);
+    }
+  });
 }
 
 /**

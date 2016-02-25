@@ -44,10 +44,10 @@ function bumpAndCommit(options) {
       commitMessage = commitMessage.replace('%s', newVersion);
 
       return comeondo.run([
-        `git add .`,
+        `git add ./package.json`,
         {
           cmd: `git`,
-          args: ['commit', '-a', '-m', `${commitMessage}`]
+          args: ['commit', '-m', `${commitMessage}`]
         }
       ], {
         cwd: process.env.PACO_PACKAGE_PATH
