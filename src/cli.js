@@ -3,6 +3,19 @@
 
 const fs = require('fs');
 const path = require('path');
+const colors = require('colors');
+const Q = require('q');
+
+const configHelpers = require('./helpers/local-configs');
+const pathHelpers = require('./helpers/paths');
+const deprecationHelpers = require('./helpers/deprecation');
+
+const isHelpCommand = process.argv.filter(arg => ['-h', '--help'].indexOf(arg) >= 0).length;
+let bootPromise = Q();
+
+if (isHelpCommand) {
+  bootPromise = deprecationHelpers.checkOutdatedVersion();
+}
 
 /* --------------------------------------------------- *\
    CLI setup
@@ -20,9 +33,6 @@ var yargs = require('yargs')
 /* --------------------------------------------------- *\
    Environment setup
 \* --------------------------------------------------- */
-
-const configHelpers = require('./helpers/local-configs');
-const pathHelpers = require('./helpers/paths');
 
 const rootPacorcPath = pathHelpers.getHighestDirContainingFileNamed('.pacorc', process.cwd());
 const nearestPacorcPath = configHelpers.getNearestPacorcPath(process.cwd());
@@ -46,8 +56,7 @@ if (isHelpCommand) {
   `.magenta}${`
       - - - - - - - -
   `.white}${`
-  Delivering your packages
-       to the world.
+  Your package utility BFF
   `.gray}
  `);
 }
@@ -83,4 +92,6 @@ require('./commands/bump')(yargs);
 // Release
 require('./commands/release')(yargs);
 
-const argv = yargs.argv;
+bootPromise.then(() => {
+  const argv = yargs.argv;
+});
