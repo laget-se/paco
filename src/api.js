@@ -12,7 +12,7 @@ const npmHelpers = require('./helpers/local-npm');
 const paths = require('./helpers/paths');
 
 function exitWithError(err) {
-  console.log('exiting due to error:');
+  console.log('Exiting due to error:'.red);
   console.log(err);
   console.log(err.stack);
   process.exit(err ? 1 : 0);
@@ -71,7 +71,7 @@ api.lint = function() {
   const npmConfig = { traverse: configs.traverse };
 
   if (configs.lint === false) {
-    console.log('lint is explicitly disabled.');
+    console.log('The `lint` command is explicitly disabled.');
     return Q();
   }
 
@@ -97,7 +97,7 @@ api.test = function() {
   const npmConfig = { traverse: configs.traverse };
 
   if (configs.test === false) {
-    console.log('test is explicitly disabled.');
+    console.log('The `test` command is explicitly disabled.');
     return Q();
   }
 
@@ -130,7 +130,7 @@ api.build = function(options = {}) {
   const configs = configHelpers.getMergedPacorc();
 
   if (configs.build === false) {
-    console.log('build is explicitly disabled.');
+    console.log('The `build` command is explicitly disabled.');
     return Q();
   }
 
