@@ -26,7 +26,14 @@
     "development",
     "utility"
   ],
-  "author": "Alexander Wallin <office@alexanderwallin.com> (http://alexanderwallin.com)",
+  "author": "Sportion Media Group AB",
+  "contributors": [
+    {
+      "name": "Alexander Wallin",
+      "email": "office@alexanderwallin.com",
+      "url": "http://alexanderwallin.com"
+    }
+  ],
   "license": "Apache-2.0",
   "licenses": [
     {
@@ -41,7 +48,7 @@
   "dependencies": {
     "colors": "^1.1.2",
     "comeondo": "^0.5.0",
-    "deep-extend": "^0.4.0",
+    "deep-extend": "^0.6.0",
     "file-exists": "^1.0.0",
     "json-pretty": "0.0.1",
     "node-objectify": "0.0.3",
